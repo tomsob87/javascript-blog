@@ -23,10 +23,14 @@ function titleClickHandler(event){
         activeArticle.classList.remove('active');
     }
     /* get 'href' attribute from the clicked link */
+    const elementAttr = clickedElement.getAttribute('href');
+    console.log("Atrybut href dla klikniętego elementu to " + elementAttr);
 
     /* find the correct article using the selector (value of 'href' attribute) */
-
+    let showArticle = document.querySelector(elementAttr);
+    console.log("Artykuł do pokazania to " + showArticle)
     /* add class 'active' to the correct article */
+    showArticle.classList.add('active');
   }
   
   const links = document.querySelectorAll('.titles a');
