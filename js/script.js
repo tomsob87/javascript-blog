@@ -41,7 +41,9 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagSelector = '.post-tags .list', 
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCound = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 function generateTitleLinks(customSelector = ''){
   // console.log('Clear titles sidebar section');
@@ -81,6 +83,25 @@ function generateTitleLinks(customSelector = ''){
 }
 
 generateTitleLinks();
+
+function calculateTagsParams(tags){
+  const params = {max: 0, min: 999999};
+  for (let tag in tags) {
+    if(tags[tag] > params.max){
+      params.max = tags[tag];
+    }
+    if(tags[tag] < params.min){
+      params.min = tags[tag];
+    }
+    // console.log(tag + ' is used ' + tags[tag] + ' times');
+  }
+  return params;
+  // console.log(params);
+}
+
+function calculateTagClass (count, params){
+  
+}
 
 function generateTags(){
   /* [NEW] create a new variable allTags with an empty object */
@@ -128,12 +149,16 @@ function generateTags(){
     // tagList.innerHTML = allTags.join(' ');
     // console.log(allTags);
     /*create variable for all links HTML code*/
+    const tagsParams = calculateTagsParams(allTags);
+    console.log('tagsParams', tagsParams);
     let allTagsHTML = '';
     // START loop for each tag in allTags
     for(let tag in allTags){
       // generate code of a link and add it to allTagsHTML
       // allTagsHTML += '<a href="#tag-'+ tag +'">' + tag + ' ('+ allTags[tag] +') </a>';
       allTagsHTML += '<li><a href="#tag-'+ tag +'">' + tag + ' ('+ allTags[tag] +') ' + '</a></li>';
+      // const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
+      // console.log('tagLinkHTML: ', tagLinkHTML);
       // console.log(tag);
       // console.log(allTags[tag]);
     }
