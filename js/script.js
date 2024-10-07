@@ -105,7 +105,7 @@ function calculateTagClass (count, params){
   const percentage = normalizedCount / normalizedMax;
   // console.log(percentage);
   const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
-  console.log(classNumber);
+  // console.log(classNumber);
 
   return optCloudClassPrefix + classNumber;
 
@@ -160,7 +160,7 @@ function generateTags(){
     // console.log(allTags);
     /*create variable for all links HTML code*/
     const tagsParams = calculateTagsParams(allTags);
-    console.log('tagsParams', tagsParams);
+    // console.log('tagsParams', tagsParams);
     let allTagsHTML = '';
     // START loop for each tag in allTags
     for(let tag in allTags){
@@ -168,7 +168,8 @@ function generateTags(){
       // allTagsHTML += '<a href="#tag-'+ tag +'">' + tag + ' ('+ allTags[tag] +') </a>';
       const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
       // console.log('tagLinkHTML: ', tagLinkHTML);
-      allTagsHTML += '<li><a href="#tag-'+ tag +'" class="'+ tagLinkHTML +'">' + tag + ' ('+ allTags[tag] +')' + '</a></li>';
+      // allTagsHTML += '<li><a href="#tag-'+ tag +'" class="'+ tagLinkHTML +'">' + tag + ' ('+ allTags[tag] +')' + '</a></li>';
+      allTagsHTML += '<li><a href="#tag-'+ tag +'" class="'+ tagLinkHTML +'">' + tag + '</a></li>';
       // console.log(allTagsHTML);
       // console.log(tag);
       // console.log(allTags[tag]);
