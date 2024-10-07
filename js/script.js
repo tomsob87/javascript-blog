@@ -43,7 +43,8 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.list.authors';
 
 function generateTitleLinks(customSelector = ''){
   // console.log('Clear titles sidebar section');
@@ -215,7 +216,7 @@ function tagClickHandler(event){
 
 function addClickListenersToTags(){
   /* find all links to tags */
-  const tagLinks = document.querySelectorAll('.post-tags .list a');
+  const tagLinks = document.querySelectorAll('.post-tags .list a, .tags a');
   /* START LOOP: for each link */
   for(let tagLink of tagLinks){
   /* add tagClickHandler as event listener for that link */
@@ -237,10 +238,10 @@ addClickListenersToTags();
 // insert html of all author links into author tag wrapper 
 // End loop 
 function generateAuthors(){
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
   // console.log(articles);
   for (let article of articles){
-    // console.log(article);
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
     // console.log(authorWrapper);
     let html = '';
@@ -249,7 +250,19 @@ function generateAuthors(){
     const linkHTML = '<a href="#author-' + authorName + '">'+ authorName +'</a>';
     // console.log(linkHTML);
     html = html + linkHTML;
+    // console.log(html);
     authorWrapper.innerHTML = html;
+
+    // [NEW] check if this link is NOT already in allAuthors object */
+    if(!allAuthors.hasOwnProperty(authorName)){
+      allAuthors[authorName] = 1;
+    } else {
+      allAuthors[authorName]++;
+      console.log(allAuthors);
+      // console.log(authorName);
+    }
+    const authorsList = document.querySelector(optAuthorsListSelector);
+
   }
 }
 
