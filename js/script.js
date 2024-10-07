@@ -245,25 +245,34 @@ function generateAuthors(){
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
     // console.log(authorWrapper);
     let html = '';
+    
     const authorName = article.getAttribute('data-author');
     // console.log(authorName);
+    
     const linkHTML = '<a href="#author-' + authorName + '">'+ authorName +'</a>';
-    // console.log(linkHTML);
-    html = html + linkHTML;
-    // console.log(html);
-    authorWrapper.innerHTML = html;
-
+    
     // [NEW] check if this link is NOT already in allAuthors object */
     if(!allAuthors.hasOwnProperty(authorName)){
       allAuthors[authorName] = 1;
     } else {
       allAuthors[authorName]++;
-      console.log(allAuthors);
-      // console.log(authorName);
     }
-    const authorsList = document.querySelector(optAuthorsListSelector);
 
+    html = html + linkHTML;
+    authorWrapper.innerHTML = html;
   }
+    
+  const authorsList = document.querySelector(optAuthorsListSelector);
+
+  for(let authorName in allAuthors){
+    const authorNumber = allAuthors[authorName];
+    const authorNameNumber = authorName + ' (' + authorNumber + ')';
+    // console.log(authorNameNumber);
+    const authorLinkHTML = '<li><a href="#author-' + authorName + '">'+ authorNameNumber + '</a>';
+    // console.log(authorLinkHTML);
+    authorsList.innerHTML += authorLinkHTML;
+  }
+  
 }
 
 generateAuthors();
@@ -309,7 +318,7 @@ function authorClickHandler(event) {
 // add authorsClickHandler as event listener for that link- 
 // end loop- 
 function addClickListenersToAuthors (){
-  const authorLinks = document.querySelectorAll('.posts .post-author a');
+  const authorLinks = document.querySelectorAll('.posts .post-author a, .authors a');
   for (let authorLink of authorLinks) {
     // console.log(authorLink);
     authorLink.addEventListener('click', authorClickHandler);
