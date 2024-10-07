@@ -90,6 +90,17 @@ body {
   li {
     display: inline-block;
     margin-right: 10px;
+    a {
+      display: block;
+      padding: 2px 20px;
+      background-color: $color-dark;
+      text-decoration: none;
+      color: #fff;
+      transition: .2s;
+      &:hover {
+        background-color: $color-dark-lighten;
+      }
+    }
   }
 }
 
@@ -116,8 +127,11 @@ body {
 
 .post-tags {
   display: flex;
+  margin-top: 40px;
+  text-transform: uppercase;
   p {
     margin: 0 10px 0 0;
+    padding: 2px 15px 2px 0;
   }
 }
 
