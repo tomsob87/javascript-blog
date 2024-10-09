@@ -1,5 +1,11 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+};
+
 const opts = {
   all: {
     articles: '.post',
@@ -77,7 +83,9 @@ function generateTitleLinks(customSelector = ''){
     /* get the title from the title element */
     
     /* create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    // const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     // console.log(linkHTML);
     /* insert link into titleList */
     html = html + linkHTML;
@@ -147,7 +155,9 @@ function generateTags(){
     for(let tag of articleTagsArray){
       // console.log('nazwa tagu to ' + tag);
       /* generate HTML of the link */
-      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      // const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const linkHTMLData = {id: tag, title: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
       // console.log(linkHTML);
       /* add generated code to html variable */
       html = html + linkHTML;
@@ -259,7 +269,9 @@ function generateAuthors(){
     const authorName = article.getAttribute('data-author');
     // console.log(authorName);
     
-    const linkHTML = '<a href="#author-' + authorName + '">'+ authorName +'</a>';
+    // const linkHTML = '<a href="#author-' + authorName + '">'+ authorName +'</a>';
+    const linkHTMLData = {id: authorName, title: authorName};
+    const linkHTML = templates.authorLink(linkHTMLData);
     
     // [NEW] check if this link is NOT already in allAuthors object */
     if(!allAuthors.hasOwnProperty(authorName)){
